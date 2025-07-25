@@ -27,7 +27,7 @@ extern uint32_t __bss_end__;
 extern uint32_t __data_start__;
 extern uint32_t __data_end__;
 extern uint32_t __data_load__;
-extern uint32_t __stack_end__;
+extern uint32_t __stack_top__;
 
 extern int main(void);
 
@@ -40,7 +40,7 @@ void SysTick_Handler(void);
 void Default_Handler(void);
 
 __attribute__((section(".isr_vector"))) void (*const vector_table[])(void) = {
-    (void (*)(void))(&__stack_end__),  // stack top
+    (void (*)(void))(&__stack_top__),  // stack top
     Reset_Handler,                     // reset handler
     NMI_Handler,                       // NMI Handler
     HardFault_Handler,                 // Hard Fault Handler
@@ -59,54 +59,54 @@ __attribute__((section(".isr_vector"))) void (*const vector_table[])(void) = {
 };
 
 void Reset_Handler(void) {
-  uint32_t* bss = &__bss_start__;
-  while (bss < &__bss_end__) {
-    *bss++ = 0;
-  }
+    uint32_t* bss = &__bss_start__;
+    while (bss < &__bss_end__) {
+        *bss++ = 0;
+    }
 
-  uint32_t* src = &__data_load__;
-  uint32_t* dst = &__data_start__;
-  while (dst < &__data_end__) {
-    *dst++ = *src++;
-  }
+    uint32_t* src = &__data_load__;
+    uint32_t* dst = &__data_start__;
+    while (dst < &__data_end__) {
+        *dst++ = *src++;
+    }
 
-  main();
-  while (1) {
-  }
+    main();
+    while (1) {
+    }
 }
 
 void NMI_Handler(void) {
-  while (1) {
-    // NMI handler code
-  }
+    while (1) {
+        // NMI handler code
+    }
 }
 
 void HardFault_Handler(void) {
-  while (1) {
-    // Hard fault handler code
-  }
+    while (1) {
+        // Hard fault handler code
+    }
 }
 
 void SVCall_Handler(void) {
-  while (1) {
-    // SVCall handler code
-  }
+    while (1) {
+        // SVCall handler code
+    }
 }
 
 void PendSV_Handler(void) {
-  while (1) {
-    // PendSV handler code
-  }
+    while (1) {
+        // PendSV handler code
+    }
 }
 
 void SysTick_Handler(void) {
-  while (1) {
-    // SysTick handler code
-  }
+    while (1) {
+        // SysTick handler code
+    }
 }
 
 void Default_Handler(void) {
-  while (1) {
-    // Default handler code
-  }
+    while (1) {
+        // Default handler code
+    }
 }
